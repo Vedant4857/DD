@@ -11,9 +11,9 @@ public:
 
         int low = 1;
         int high = max;
-        int ans = max;
 
-        while(low<=high){
+
+        while(low<high){
             long long hours = 0;
 
             int mid = low + (high - low)/2;
@@ -23,13 +23,12 @@ public:
             }
 
             if(hours<=h){
-                ans = mid;
-                high = mid - 1;
+                high = mid;
             }
             else{
                 low = mid + 1;
             }
         }
-        return ans;
+        return low;
     }
 };
