@@ -9,13 +9,17 @@ public:
 
         while(low<=high){
             int mid = low + (high - low)/2;
+
             int r = mid/col;
             int c = mid%col;
 
-            if(matrix[r][c]==target) return 1;
-            else if(matrix[r][c]<target) low = mid + 1;
-            else high = mid - 1;
+            if(matrix[r][c] == target) return true;
+            else if(matrix[r][c] > target){
+                high = mid -1;
+            }
+            else low = mid + 1;
         }
-        return 0;
+        return false;
+
     }
 };
