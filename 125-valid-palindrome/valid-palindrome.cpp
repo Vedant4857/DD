@@ -4,12 +4,13 @@ public:
         int i = 0, j = s.size() - 1;
 
         while (i < j) {
-            // skip non-alphanumeric from left
-            while (i < j && !isalnum((unsigned char)s[i])) i++;
-            // skip non-alphanumeric from right
-            while (i < j && !isalnum((unsigned char)s[j])) j--;
 
-            // compare case-insensitively
+            while (i < j && !isalnum((unsigned char)s[i])) 
+                i++;
+ 
+            while (i < j && !isalnum((unsigned char)s[j])) 
+                j--;
+
             if (tolower((unsigned char)s[i]) != tolower((unsigned char)s[j]))
                 return false;
 
