@@ -5,7 +5,7 @@ public:
         int N = n.size();
         if(N==0) return 0;
 
-        for(int i=0;i<H;i++){
+        for(int i=0;i<=H-N;i++){
             int j = 0;
             while(j<N && h[i+j] == n[j]){
                 j++;
