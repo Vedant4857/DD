@@ -1,17 +1,21 @@
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
-        unordered_set <int> vedant;
-        // int max = *max_element(nums.begin(),nums.end());
+        int n = nums.size();
 
-        for(int x: nums){
-            vedant.insert(x);
+        // Step 1: Place each number x at index x-1
+        for(int i = 0; i < n; i++){
+            while(nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]){
+                swap(nums[nums[i] - 1], nums[i]);
+            }
         }
 
-        for(int i = 1; i<INT_MAX;i++){
-            if(vedant.count(i)) continue;
-            else return i;
+        // Step 2: Find the first index that doesn't hold the expected value
+        for(int i = 0; i < n; i++){
+            if(nums[i] != i + 1) return i + 1;
         }
-        return 0;
+
+        // Step 3: If all positions are correct, return n + 1
+        return n + 1;
     }
 };
