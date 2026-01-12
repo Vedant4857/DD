@@ -1,40 +1,35 @@
 class Solution {
 public:
-    int shipWithinDays(vector<int>& w, int days) {
-        int n = w.size();
-        int max = 0;
-        int s = 0;
-        for(int i = 0;i<n;i++){
-            if(w[i]>max) max = w[i];
-            s+= w[i];
+    int canShip(vector<int>& weights, int mid, int days) {
+        int sum = 0;
+        int day = 1;
+
+        for (int i = 0; i < weights.size(); i++) {
+            if (sum + weights[i] <= mid) {
+                sum += weights[i];
+            } else {
+                if (day < days) {
+                    day++;
+                    sum = weights[i];
+                } else
+                    return 0;
+            }
         }
-        int low = max;
-        int high = s;
-        int ans = s;
+        return 1;
+    }
+    int shipWithinDays(vector<int>& weights, int days) {
+        int low = *max_element(weights.begin(), weights.end());
+        int high = accumulate(weights.begin(), weights.end(), 0);
+        int ans = high;
 
-        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
 
-        while(low<=high){
-            int mid = low + (high - low)/2;
-            int sum = 0;
-            int k = 1;
-
-            for(int i = 0;i<n;i++){
-                if(w[i] + sum <= mid){
-                    sum += w[i];
-                }
-                else{
-                    k++;
-                    sum = w[i];
-                }
-            }
-
-            if(k<=days){
-                high = mid -1;
+            if (canShip(weights, mid, days)) {
                 ans = mid;
-            }
-            else low = mid + 1;
-
+                high = mid - 1;
+            } else
+                low = mid + 1;
         }
         return ans;
     }
