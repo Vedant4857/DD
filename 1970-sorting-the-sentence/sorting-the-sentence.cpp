@@ -9,9 +9,9 @@ public:
             while(j>=0 && s[j] != num + '0'){
                 j--;
             }
+            if (j < 0) break;
             j--;
             string xyz = "";
-            if (j < 0) break;
 
             while(j>=0 && s[j]!=' '){
                 xyz += s[j];
