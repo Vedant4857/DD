@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void vedant(vector<int>& c,int index, int n, int sum,vector<int> subans,vector<vector<int>> &ans, int target){
+    void vedant(vector<int>& c,int index, int n, int sum,vector<int> &subans,vector<vector<int>> &ans, int target){
 
         if(index==n || sum>target){
             if(sum==target){
@@ -15,7 +15,8 @@ public:
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>> ans;
-        vedant(candidates,0,candidates.size(),0,{},ans,target);
+        vector<int>subans;
+        vedant(candidates,0,candidates.size(),0,subans,ans,target);
 
         return ans;
     }
