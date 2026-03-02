@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void vedant(int n, int open, int close, string x, vector<string>& ans) {
+    void vedant(int n, int open, int close, string &x, vector<string>& ans) {
         if (open == n && close == n) {
             ans.push_back(x);
             return;
