@@ -16,8 +16,7 @@ public:
 
         head->next = removeNodes(head->next);
         if (head->val < head->next->val) {
-            ListNode* temp = head->next;
-            return temp;
+            return head->next;
         }
         return head;
     }
