@@ -28,8 +28,7 @@ public:
         while (curr) {
             if (vedant.count(curr->val)) {
                 prev->next = curr->next;
-            }
-            else{
+            } else {
                 prev = prev->next;
             }
             curr = curr->next;
