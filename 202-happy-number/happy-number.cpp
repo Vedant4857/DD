@@ -1,15 +1,24 @@
 class Solution {
 public:
-    bool isHappy(int n) {
-        if(n==1 || n==7) return true;
-        if(n<10) return false;
+    int vedant(int n) {
         int sum = 0;
 
-        while(n>0){
-            int x = n%10;
+        while (n > 0) {
+            int x = n % 10;
             sum += x * x;
-            n = n/10;
+            n = n / 10;
         }
-        return isHappy(sum);
+        return sum;
+    }
+
+    bool isHappy(int n) {
+        int slow = n;
+        int fast = n;
+
+        do {
+            slow = vedant(slow);
+            fast = vedant(vedant(fast));
+        } while (slow != fast);
+        return (slow == 1);
     }
 };
