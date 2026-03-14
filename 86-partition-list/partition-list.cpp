@@ -13,9 +13,10 @@ public:
     ListNode* partition(ListNode* head, int x) {
         if (!head || !head->next)
             return head;
-        ListNode dummy(0);    
-        ListNode* first = &dummy;
-        ListNode* second = &dummy;
+        ListNode fdummy(0);
+        ListNode sdummy(0);
+        ListNode* first = &fdummy;
+        ListNode* second = &sdummy;
         ListNode* fhead = NULL;
         ListNode* shead = NULL;
         ListNode* temp = head;
@@ -36,8 +37,10 @@ public:
             }
             temp = temp->next;
         }
-        if(!fhead) return shead;
-        if(!shead) return fhead;
+        if (!fhead)
+            return shead;
+        if (!shead)
+            return fhead;
 
         first->next = shead;
         second->next = NULL;
