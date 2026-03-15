@@ -19,22 +19,22 @@ public:
             fast = fast->next->next;
         }
 
-        ListNode * curr = slow->next;
+        ListNode* curr = slow->next;
         slow->next = NULL;
-        ListNode * prev = NULL;
+        ListNode* prev = NULL;
 
-        while(curr){
-            ListNode * future = curr->next;
+        while (curr) {
+            ListNode* future = curr->next;
             curr->next = prev;
             prev = curr;
             curr = future;
         }
-        ListNode * first = head;
-        ListNode * second = prev;
+        ListNode* first = head;
+        ListNode* second = prev;
 
-        while(second){
-            ListNode * f1 = first->next;
-            ListNode * s1 = second->next;
+        while (second) {
+            ListNode* f1 = first->next;
+            ListNode* s1 = second->next;
 
             first->next = second;
             second->next = f1;
