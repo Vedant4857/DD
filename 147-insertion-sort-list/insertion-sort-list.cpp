@@ -26,7 +26,7 @@ public:
                 continue;
             }
 
-            while (temp1->next->val <= temp2->val) {
+            while (temp1->next && temp1->next->val <= temp2->val) {
                 temp1 = temp1->next;
             }
 
