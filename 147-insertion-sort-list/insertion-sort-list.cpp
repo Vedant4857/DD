@@ -11,23 +11,22 @@
 class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
-        if (!head)
-            return NULL;
+        if (!head || !head->next)
+            return head;
         ListNode dummy(0);
         dummy.next = head;
-        ListNode* prev = head;
         ListNode* temp2 = head->next;
+        ListNode* prev = head;
 
         while (temp2) {
+            ListNode* temp1 = &dummy;
             if (temp2->val >= prev->val) {
                 prev = temp2;
                 temp2 = temp2->next;
                 continue;
             }
 
-            ListNode* temp1 = &dummy;
-
-            while (temp1->next->val < temp2->val) {
+            while (temp1->next->val <= temp2->val) {
                 temp1 = temp1->next;
             }
 
@@ -37,7 +36,6 @@ public:
 
             temp2 = prev->next;
         }
-
         return dummy.next;
     }
 };
