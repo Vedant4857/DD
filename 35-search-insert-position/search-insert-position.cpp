@@ -17,6 +17,6 @@ public:
             } else
                 high = mid - 1;
         }
-        return ans+1;
+        return ans + 1;
     }
 };
