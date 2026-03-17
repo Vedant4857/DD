@@ -17,34 +17,21 @@ public:
         ListNode sdummy(0);
         ListNode* first = &fdummy;
         ListNode* second = &sdummy;
-        ListNode* fhead = NULL;
-        ListNode* shead = NULL;
         ListNode* temp = head;
 
         while (temp) {
             if (temp->val < x) {
-                if (!fhead) {
-                    fhead = temp;
-                }
                 first->next = temp;
                 first = first->next;
             } else {
-                if (!shead) {
-                    shead = temp;
-                }
                 second->next = temp;
-                second = second = second->next;
+                second = second->next;
             }
             temp = temp->next;
         }
-        if (!fhead)
-            return shead;
-        if (!shead)
-            return fhead;
-
-        first->next = shead;
+        first->next = sdummy.next;
         second->next = NULL;
 
-        return fhead;
+        return fdummy.next;
     }
 };
