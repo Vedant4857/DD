@@ -5,20 +5,22 @@ public:
         int n = a.size();
 
         for (int i = 0; i < n; i++) {
+            bool push = true;
             while (!st.empty() && st.top() > 0 && a[i] < 0) {
                 if (abs(a[i]) < st.top()) {
-                    goto next_outer_iteration;
+                    push = false;
+                    break;
                 } else if (abs(a[i]) > st.top()) {
                     st.pop();
                 } else if (abs(a[i]) == st.top()) {
                     st.pop();
-                    goto next_outer_iteration;
+                    push = false;
+                    break;
                 }
             }
-
-            st.push(a[i]);
-
-        next_outer_iteration:;
+            if (push) {
+                st.push(a[i]);
+            }
         }
         vector<int> ans;
         while (!st.empty()) {
