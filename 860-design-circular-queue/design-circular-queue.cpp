@@ -1,18 +1,28 @@
+class Node{
+    public:
+    int val;
+    Node * next;
+
+    Node(int value){
+        val = value;
+        next = NULL;
+    }
+};
+
 class MyCircularQueue {
 public:
-    int front,rear,size,capacity;
-    int * arr;
+    int size,capacity;
+    Node * front, * rear;
     MyCircularQueue(int k) {
-        arr = new int[k];
-        capacity = k;
         size = 0;
-        front = rear = -1;
+        capacity = k;
+        front = rear = NULL;
     }
     
     bool enQueue(int value) {
         if(isEmpty()){
-            front = rear = 0;
-            arr[rear] = value;
+            rear = front = new Node(value);
+            rear->next = rear;
             size++;
             return true;
         }
@@ -20,8 +30,9 @@ public:
             return false;
         }
         else{
-            rear = (rear+1)%capacity;
-            arr[rear] = value;
+            rear->next = new Node(value);
+            rear = rear->next;
+            rear->next = front;
             size++;
             return true;
         }
@@ -33,7 +44,16 @@ public:
             return false;
         }
         else{
-            front = (front+1)%capacity;
+            //if size ==1
+            if(size==1){
+                delete rear;
+                rear = front = NULL;
+                size--;
+                return true;
+            }
+            front = front->next;
+            delete rear->next;
+            rear->next = front;
             size--;
             return true;
         }
@@ -44,14 +64,14 @@ public:
         if(isEmpty()){
             return -1;
         }
-        return arr[front];
+        return front->val;
     }
     
     int Rear() {
         if(isEmpty()){
             return -1;
         }
-        return arr[rear];
+        return rear->val;
     }
     
     bool isEmpty() {
