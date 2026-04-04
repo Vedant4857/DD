@@ -21,14 +21,16 @@ public:
         while (!q.empty()) {
             vector<int> curr;
             int siz = q.size();
-            for (int i = 0; i < siz; i++) {
-                TreeNode* c = q.front();
+            while (siz--) {
+                TreeNode* p = q.front();
                 q.pop();
-                curr.push_back(c->val);
-                if (c->left)
-                    q.push(c->left);
-                if (c->right)
-                    q.push(c->right);
+                curr.push_back(p->val);
+                if (p->left) {
+                    q.push(p->left);
+                }
+                if (p->right) {
+                    q.push(p->right);
+                }
             }
             ans.push_back(curr);
         }
