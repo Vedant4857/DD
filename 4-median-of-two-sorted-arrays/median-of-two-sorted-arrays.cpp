@@ -8,6 +8,7 @@ public:
 
         int i = 0;
         int j = 0;
+        int k = 0;
 
         while(i<m && j<n){
             if(nums1[i] < nums2[j]){
