@@ -12,19 +12,45 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root, vector<int>& ans) {
-        if (!root) {
-            return;
-        }
-        inorder(root->left, ans);
-        ans.push_back(root->val);
-        inorder(root->right, ans);
-    }
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-        vector<int> arr1;
-        inorder(root1, arr1);
-        inorder(root2, arr1);
-        sort(arr1.begin(), arr1.end());
-        return arr1;
+        stack<TreeNode*> s1;
+        stack<TreeNode*> s2;
+        vector<int> ans;
+
+        while (root1 || root2 || !s1.empty() || !s2.empty()) {
+            while (root1) {
+                s1.push(root1);
+                root1 = root1->left;
+            }
+            while (root2) {
+                s2.push(root2);
+                root2 = root2->left;
+            }
+
+            if (s1.empty()) {
+                TreeNode* a2 = s2.top();
+                ans.push_back(a2->val);
+                root2 = a2->right;
+                s2.pop();
+            } else if (s2.empty()) {
+                TreeNode* a1 = s1.top();
+                ans.push_back(a1->val);
+                root1 = a1->right;
+                s1.pop();
+            } else {
+                TreeNode* a1 = s1.top();
+                TreeNode* a2 = s2.top();
+                if (a1->val <= a2->val) {
+                    ans.push_back(a1->val);
+                    root1 = a1->right;
+                    s1.pop();
+                } else {
+                    ans.push_back(a2->val);
+                    root2 = a2->right;
+                    s2.pop();
+                }
+            }
+        }
+        return ans;
     }
 };
