@@ -26,8 +26,8 @@ public:
         return ans;
     }
     vector<int> merge(vector<int>& arr, int start, int end) {
-        if (start >= end) {
-            return {arr[end]};
+        if (start == end) {
+            return {arr[start]};
         }
         vector<int> first;
         vector<int> second;
