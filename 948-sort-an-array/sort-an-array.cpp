@@ -1,44 +1,31 @@
 class Solution {
 public:
-    // Merge Sort
+    void heapify(vector<int>& arr, int i, int siz) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
 
-    vector<int> mergesort(vector<int>& arr1, vector<int>& arr2) {
-        vector<int> ans;
-        int i = 0, j = 0;
+        if (left < siz && arr[left] > arr[largest]) {
+            largest = left;
+        }
+        if (right < siz && arr[right] > arr[largest]) {
+            largest = right;
+        }
 
-        while (i < arr1.size() && j < arr2.size()) {
-            if (arr1[i] < arr2[j]) {
-                ans.push_back(arr1[i]);
-                i++;
-            } else {
-                ans.push_back(arr2[j]);
-                j++;
-            }
+        if (largest != i) {
+            swap(arr[largest], arr[i]);
+            heapify(arr, largest, siz);
         }
-        while (i < arr1.size()) {
-            ans.push_back(arr1[i]);
-            i++;
-        }
-        while (j < arr2.size()) {
-            ans.push_back(arr2[j]);
-            j++;
-        }
-        return ans;
-    }
-    vector<int> merge(vector<int>& arr, int start, int end) {
-        if (start == end) {
-            return {arr[start]};
-        }
-        vector<int> first;
-        vector<int> second;
-        int p = start + (end - start) / 2;
-        first = merge(arr, start, p);
-        second = merge(arr, p + 1, end);
-
-        return mergesort(first, second);
     }
     vector<int> sortArray(vector<int>& nums) {
-        int n = nums.size() - 1;
-        return merge(nums, 0, n);
+        for (int i = nums.size() / 2 - 1; i >= 0; i--) {
+            heapify(nums, i, nums.size());
+        }
+        for (int i = nums.size() - 1; i >= 0; i--) {
+            swap(nums[0], nums[i]);
+            heapify(nums, 0, i);
+        }
+
+        return nums;
     }
 };
