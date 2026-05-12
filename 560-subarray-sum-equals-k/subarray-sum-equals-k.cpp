@@ -7,10 +7,7 @@ public:
         int prefixsum = 0;
         for(int i = 0;i<nums.size();i++){
             prefixsum += nums[i];
-            int x = prefixsum-k;
-            if(freq.find(x)!=freq.end()){
-                count += freq[x];
-            }
+            count += freq[prefixsum-k];
             freq[prefixsum]++;
         }
         return count;
