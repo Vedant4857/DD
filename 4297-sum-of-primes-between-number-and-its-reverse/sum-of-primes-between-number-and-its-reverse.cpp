@@ -19,18 +19,18 @@ public:
     int sumOfPrimesInRange(int n) {
         int x = n;
         int sum = 0;
-        while (x>=1) {
+        while (x >= 1) {
             int y = x % 10;
             sum = sum * 10 + y;
             x = x / 10;
         }
-        int mini = min(n,sum);
+        int mini = min(n, sum);
         int maxi = max(n, sum);
         vector<bool> primee = sieve(maxi);
-        
+
         int sumo = 0;
-        for(int i = mini;i<=maxi;i++){
-            if(primee[i]){
+        for (int i = mini; i <= maxi; i++) {
+            if (primee[i]) {
                 sumo += i;
             }
         }
