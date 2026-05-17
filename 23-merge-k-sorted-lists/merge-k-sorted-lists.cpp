@@ -10,36 +10,32 @@
  */
 class Solution {
 public:
-    ListNode* merge2sorted(ListNode* head1, ListNode* head2) {
-        if (!head1)
-            return head2;
-        if (!head2)
-            return head1;
-        ListNode* c;
-
-        if (head1->val <= head2->val) {
-            c = head1;
-            c->next = merge2sorted(head1->next, head2);
-        } else {
-            c = head2;
-            c->next = merge2sorted(head1, head2->next);
+    struct compare {
+        bool operator()(ListNode* first, ListNode* second) {
+            return first->val > second->val;
         }
-
-        return c;
-    }
-    ListNode* merge(vector<ListNode*>& lists, int start, int end) {
-        if (start == end)
-            return lists[end];
-        int mid = start + (end - start) / 2;
-
-        ListNode* head1 = merge(lists, start, mid);
-        ListNode* head2 = merge(lists, mid + 1, end);
-
-        return merge2sorted(head1, head2);
-    }
+    };
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if (lists.size() == 0)
-            return NULL;
-        return merge(lists, 0, lists.size() - 1);
+        priority_queue<ListNode*, vector<ListNode*>, compare> pq;
+
+        for (int i = 0; i < lists.size(); i++) {
+            if (lists[i]) {
+                pq.push(lists[i]);
+            }
+        }
+        ListNode dummy(0);
+        ListNode* tail = &dummy;
+
+        while (!pq.empty()) {
+            ListNode* curr = pq.top();
+            pq.pop();
+            tail->next = curr;
+            curr = curr->next;
+            if (curr) {
+                pq.push(curr);
+            }
+            tail = tail->next;
+        }
+        return dummy.next;
     }
 };
