@@ -1,48 +1,35 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        vector<int> freq(256, 0);
-        vector<int> freq2(256, 0);
-
-        int required = 0, formed = 0;
-        int i = 0, j = 0;
-        int mini = INT_MAX, start = 0;
-
-        // Build frequency map for t
-        for (int k = 0; k < t.size(); k++) {
-            if (freq[t[k]] == 0)
-                required++;
-            freq[t[k]]++;
+        vector<int> t_freq(128, 0);
+        for (auto x : t) {
+            t_freq[x]++;
         }
+        int t_counter = t.size();
+        vector<int> s_freq(128, 0);
+        int left = 0, right = 0, s_counter = 0, startindex = 0,
+            minsize = INT_MAX, n = s.size();
 
-        // Sliding window
-        while (j < s.size()) {
-            if (freq[s[j]] > 0) {
-                freq2[s[j]]++;
+        while (right < n) {
+            s_freq[s[right]]++;
 
-                if (freq2[s[j]] == freq[s[j]]) {
-                    formed++;
-                }
+            if (t_freq[s[right]] && s_freq[s[right]] <= t_freq[s[right]]) {
+                s_counter++;
             }
-
-            // Shrink window
-            while (formed == required) {
-                if (j - i + 1 < mini) {
-                    mini = j - i + 1;
-                    start = i;
+            while (s_counter == t_counter) {
+                if (right - left + 1 < minsize) {
+                    minsize = right - left + 1;
+                    startindex = left;
+                }
+                if (t_freq[s[left]] && s_freq[s[left]] <= t_freq[s[left]]) {
+                    s_counter--;
                 }
 
-                if (freq[s[i]] > 0) {
-                    freq2[s[i]]--;
-
-                    if (freq2[s[i]] < freq[s[i]])
-                        formed--;
-                }
-                i++;
+                s_freq[s[left]]--;
+                left++;
             }
-            j++;
+            right++;
         }
-
-        return (mini == INT_MAX) ? "" : s.substr(start, mini);
+        return minsize == INT_MAX ? "" : s.substr(startindex, minsize);
     }
 };
