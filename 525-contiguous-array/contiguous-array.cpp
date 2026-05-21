@@ -7,11 +7,7 @@ public:
         int maxi = 0;
         int sum = 0;
         for (int i = 0; i < n; i++) {
-            if (nums[i] == 0) {
-                sum += -1;
-            } else {
-                sum += 1;
-            }
+            sum += ((nums[i]==0)?-1:1);
             if (mp.count(sum)) {
                 maxi = max(maxi, i - mp[sum]);
             } else {
