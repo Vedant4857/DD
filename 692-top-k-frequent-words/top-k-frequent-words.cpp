@@ -1,12 +1,12 @@
 class Solution {
 public:
-    class cmp{
-        public:
-        bool operator()(pair<string,int>&a,pair<string,int>&b){
-            if(a.second==b.second){
+    class cmp {
+    public:
+        bool operator()(pair<string, int>& a, pair<string, int>& b) {
+            if (a.second == b.second) {
                 return a.first < b.first;
             }
-            return a.second>b.second;
+            return a.second > b.second;
         }
     };
     vector<string> topKFrequent(vector<string>& words, int k) {
