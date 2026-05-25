@@ -16,11 +16,11 @@ public:
         a--;
         b++;
 
-
-        while(a-- && a_1){
-            a_1 = a_1->next;
-        }
-        while(b-- && b_1){
+        while(b--&&b_1){
+            if(a&&a_1){
+                a_1 = a_1->next;
+                a--;
+            }
             b_1 = b_1->next;
         }
         ListNode* sec = list2;
