@@ -11,8 +11,8 @@ public:
         // 1. 0.  1.  1.  1
         // 1. 1.  1.  0.  0
         // 0. 1.  0.  1.  0
-        // 1. 1.  1.  1.  1
-        // 0. 0.  0.  1.  1
+        // 1. 1.  1.  2.  1
+        // 0. 0.  0.  1.  2
 
         // ietarte and find all 1 and put in queue;
         int row = mat.size();
