@@ -1,20 +1,28 @@
 class Solution {
 public:
-    void vedant(vector<int>& nums, int index, int n, vector<vector<int>>& ans){
-        if(index==n-1){
-            ans.push_back(nums);
+    void vedant(vector<int>& nums, vector<int>& subans,
+                vector<vector<int>>& ans, int n, vector<bool>& vis) {
+        if (subans.size() == n) {
+            ans.push_back(subans);
             return;
         }
-        for(int i = index;i<n;i++){
-            swap(nums[index],nums[i]);
-            vedant(nums,index+1,n,ans);
-            swap(nums[index],nums[i]);
+
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                vis[i] = true;
+                subans.push_back(nums[i]);
+                vedant(nums, subans, ans, n, vis);
+                subans.pop_back();
+                vis[i] = false;
+            }
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
         vector<vector<int>> ans;
-        vedant(nums,0,nums.size(),ans);
-
+        vector<int> subans;
+        vector<bool> vis(n, 0);
+        vedant(nums, subans, ans, n, vis);
         return ans;
     }
 };
