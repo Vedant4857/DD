@@ -1,19 +1,20 @@
 class Solution {
 public:
-    int ans(vector<int>& nums, int i, vector<int>& dp) {
-        if (i >= nums.size()) {
-            return 0;
+    int ans(vector<int>& nums, int n, vector<int>& dp) {
+        if(n==0){
+            return nums[n];
         }
-        if (dp[i] != -1) {
-            return dp[i];
+        if(n==1){
+            return max(nums[0],nums[1]);
         }
-        int take = nums[i] + ans(nums, i + 2,dp);
-        int skip = ans(nums, i + 1,dp);
-
-        return dp[i] = max(take, skip);
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+        return dp[n] = max(nums[n]+ans(nums,n-2,dp),ans(nums,n-1,dp));
     }
     int rob(vector<int>& nums) {
-        vector<int> dp(nums.size(), -1);
-        return ans(nums, 0, dp);
+        int n = nums.size();
+        vector<int> dp(n, -1);
+        return ans(nums, n-1, dp);
     }
 };
