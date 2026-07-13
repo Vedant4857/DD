@@ -7,7 +7,7 @@ public:
         int i = 0, j = 0;
 
         while (i < n && j < n) {
-            while (nums[i] < 0 && i < n) {
+            while (i < n && nums[i] < 0) {
                 i++;
             }
             if (i < n && nums[i] > 0) {
@@ -15,7 +15,7 @@ public:
                 i++;
             }
 
-            while (nums[j] > 0 && j < n) {
+            while (j < n && nums[j] > 0) {
                 j++;
             }
             if (j < n && nums[j] < 0) {
