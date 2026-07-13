@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans;
+
+        int i = 0, j = 0;
+
+        while (i < n && j < n) {
+            while (nums[i] < 0 && i < n) {
+                i++;
+            }
+            if (i < n && nums[i] > 0) {
+                ans.push_back(nums[i]);
+                i++;
+            }
+
+            while (nums[j] > 0 && j < n) {
+                j++;
+            }
+            if (j < n && nums[j] < 0) {
+                ans.push_back(nums[j]);
+                j++;
+            }
+        }
+        return ans;
+    }
+};
