@@ -1,9 +1,9 @@
 class Solution {
 public:
     int missingInteger(vector<int>& nums) {
-        unordered_set<int> st;
+        vector<bool> st(52, 0);
         for (int x : nums) {
-            st.insert(x);
+            st[x] = 1;
         }
         int prefixsum = nums[0];
         int i;
@@ -14,14 +14,17 @@ public:
                 break;
             }
         }
-        if (!st.count(prefixsum)) {
+        if(prefixsum>51){
+            return prefixsum;
+        }
+        if (!st[prefixsum]) {
             return prefixsum;
         }
         for (int x = prefixsum; x <= 51; x++) {
-            if (!st.count(x)) {
+            if (!st[x]) {
                 return x;
             }
         }
-        return nums[0]+1;
+        return nums[0] + 1;
     }
 };
