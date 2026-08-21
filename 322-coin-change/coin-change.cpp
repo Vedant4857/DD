@@ -1,27 +1,22 @@
 class Solution {
 public:
-    int mincoins(int n, int amount, vector<int>& c, vector<vector<int>>& dp) {
-
-        if (amount == 0) {
-            return 0;
-        }
-        if (n == 0 || amount < 0) {
-            return 1e9;
-        }
-        if (dp[n][amount] != -1) {
-            return dp[n][amount];
-        }
-
-        return dp[n][amount] = min(mincoins(n - 1, amount, c, dp),
-                                   1 + mincoins(n, amount - c[n - 1], c, dp));
-    }
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n + 1, vector<int>(amount + 1, -1));
-        int ans = mincoins(n, amount, coins, dp);
-        if (ans == 1e9) {
+        vector<vector<int>> dp(n + 1, vector<int>(amount + 1, 1e9));
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 0;
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= amount; j++) {
+                if (j - coins[i - 1] >= 0)
+                    dp[i][j] = min(dp[i - 1][j], 1 + dp[i][j - coins[i - 1]]);
+                else
+                    dp[i][j] = dp[i - 1][j];
+            }
+        }
+        if (dp[n][amount] == 1e9) {
             return -1;
         }
-        return ans;
+        return dp[n][amount];
     }
 };
