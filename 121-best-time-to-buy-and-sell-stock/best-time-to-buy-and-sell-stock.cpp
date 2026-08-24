@@ -4,9 +4,9 @@ public:
         int n = prices.size();
         int mini = INT_MAX;
         int maxi = -1;
-        for(int p : prices){
-            mini = min(mini,p);
-            maxi = max(maxi,p-mini);
+        for (int p : prices) {
+            mini = min(mini, p);
+            maxi = max(maxi, p - mini);
         }
         return maxi;
     }
